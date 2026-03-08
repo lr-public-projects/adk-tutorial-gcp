@@ -2,8 +2,13 @@ import yaml
 from dotenv import load_dotenv
 
 from google.adk.agents import LlmAgent
+from google.adk.tools import google_search
+
+from .tools.calculations import calcular_media
+
 
 load_dotenv()
+
 
 def load_agent_config(path: str) -> dict:
     with open(path, "r", encoding="utf-8") as f:
@@ -16,4 +21,8 @@ root_agent = LlmAgent(
     description=config["agent"]["description"],
     model=config["model"]["name"],
     instruction=config["instruction"],
+    tools=[
+        #calcular_media,
+        google_search,
+    ],
 )
